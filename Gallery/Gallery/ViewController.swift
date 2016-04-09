@@ -24,9 +24,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         updateGallery()
         
         if gallery.count == 0 {
-            createArt("Mona Lisa", imageName: "", productIdentifier: "", purchased: true)
-            createArt("The Starry Night", imageName: "", productIdentifier: "", purchased: true)
-            createArt("The Scream", imageName: "", productIdentifier: "", purchased: false)
+            createArt("Mona Lisa", imageName: "mona-lisa.jpg", productIdentifier: "", purchased: true)
+            createArt("The Starry Night", imageName: "starry-night.jpg", productIdentifier: "", purchased: true)
+            createArt("The Scream", imageName: "the-scream.jpg", productIdentifier: "", purchased: true)
+            createArt("The Persistence of Memory", imageName: "the-persistence-of-memory-1931.jpg", productIdentifier: "", purchased: true)
             updateGallery()
             collectionView.reloadData()
         }
@@ -71,7 +72,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ArtCollectionViewCell", forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ArtCollectionViewCell", forIndexPath: indexPath) as! ArtCollectionViewCell
+        
+        let art = gallery[indexPath.row]
+        cell.imageView.image = UIImage(named: art.imageName!)
+        cell.titleLabel.text = art.title!
+        
         return cell
     }
     

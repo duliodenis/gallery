@@ -7,6 +7,7 @@
     <customFonts key="customFonts">
         <mutableArray key="ParkLane.ttf">
             <string>ParkLaneNF</string>
+            <string>ParkLaneNF</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -34,6 +35,7 @@
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8IT-Qd-Qft">
                                 <rect key="frame" x="0.0" y="107" width="600" height="449"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="30" minimumInteritemSpacing="10" id="bCv-lb-f11">
                                     <size key="itemSize" width="227" height="257"/>
                                     <size key="headerReferenceSize" width="30" height="0.0"/>
@@ -47,9 +49,31 @@
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="227" height="257"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8GH-bl-urf">
+                                                    <rect key="frame" x="0.0" y="0.0" width="227" height="207"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F8o-Jo-6ta">
+                                                    <rect key="frame" x="90" y="227" width="46" height="20"/>
+                                                    <fontDescription key="fontDescription" name="ParkLaneNF" family="Park Lane NF" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <color key="backgroundColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="8GH-bl-urf" firstAttribute="top" secondItem="nS5-O1-Wto" secondAttribute="top" id="0Gd-Tx-wUT"/>
+                                            <constraint firstAttribute="bottom" secondItem="8GH-bl-urf" secondAttribute="bottom" constant="50" id="Imr-F5-mvA"/>
+                                            <constraint firstAttribute="bottom" secondItem="F8o-Jo-6ta" secondAttribute="bottom" constant="10" id="bKQ-Mw-ivR"/>
+                                            <constraint firstItem="F8o-Jo-6ta" firstAttribute="centerX" secondItem="nS5-O1-Wto" secondAttribute="centerX" id="eIe-U5-wJ1"/>
+                                            <constraint firstAttribute="trailing" secondItem="8GH-bl-urf" secondAttribute="trailing" id="iYx-zP-slh"/>
+                                            <constraint firstItem="8GH-bl-urf" firstAttribute="leading" secondItem="nS5-O1-Wto" secondAttribute="leading" id="qXi-aL-RIe"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="8GH-bl-urf" id="M2B-VY-M98"/>
+                                            <outlet property="titleLabel" destination="F8o-Jo-6ta" id="qaQ-yx-aR4"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="9tz-ei-eet">
