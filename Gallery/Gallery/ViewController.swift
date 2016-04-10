@@ -8,8 +8,10 @@
 
 import UIKit
 import CoreData
+import StoreKit
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SKProductsRequestDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -25,12 +27,31 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         if gallery.count == 0 {
             createArt("Mona Lisa", imageName: "mona-lisa.jpg", productIdentifier: "", purchased: true)
-            createArt("The Starry Night", imageName: "starry-night.jpg", productIdentifier: "", purchased: false)
-            createArt("The Scream", imageName: "the-scream.jpg", productIdentifier: "", purchased: false)
-            createArt("The Persistence of Memory", imageName: "the-persistence-of-memory-1931.jpg", productIdentifier: "", purchased: false)
+            createArt("The Starry Night", imageName: "starry-night.jpg", productIdentifier: "StarryNight", purchased: false)
+            createArt("The Scream", imageName: "the-scream.jpg", productIdentifier: "Scream", purchased: false)
+            createArt("The Persistence of Memory", imageName: "the-persistence-of-memory-1931.jpg", productIdentifier: "PersistenceOfMemory", purchased: false)
             updateGallery()
             collectionView.reloadData()
         }
+        
+        requestProductsForSale()
+    }
+    
+    
+    // MARK: IAP Functions / StoreKit Delegate Methods
+    
+    func requestProductsForSale() {
+        let ids: Set<String> = ["StarryNight", "Scream", "PersistenceOfMemory"]
+        let productsRequest = SKProductsRequest(productIdentifiers: ids)
+        productsRequest.delegate = self
+        productsRequest.start()
+    }
+    
+    
+    func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
+        print("Received requested products")
+        print("Products Ready: \(response.products)")
+        print("Invalid Products: \(response.invalidProductIdentifiers)")
     }
     
     
