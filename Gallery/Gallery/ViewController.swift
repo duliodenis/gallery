@@ -25,9 +25,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         if gallery.count == 0 {
             createArt("Mona Lisa", imageName: "mona-lisa.jpg", productIdentifier: "", purchased: true)
-            createArt("The Starry Night", imageName: "starry-night.jpg", productIdentifier: "", purchased: true)
-            createArt("The Scream", imageName: "the-scream.jpg", productIdentifier: "", purchased: true)
-            createArt("The Persistence of Memory", imageName: "the-persistence-of-memory-1931.jpg", productIdentifier: "", purchased: true)
+            createArt("The Starry Night", imageName: "starry-night.jpg", productIdentifier: "", purchased: false)
+            createArt("The Scream", imageName: "the-scream.jpg", productIdentifier: "", purchased: false)
+            createArt("The Persistence of Memory", imageName: "the-persistence-of-memory-1931.jpg", productIdentifier: "", purchased: false)
             updateGallery()
             collectionView.reloadData()
         }
@@ -77,6 +77,22 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let art = gallery[indexPath.row]
         cell.imageView.image = UIImage(named: art.imageName!)
         cell.titleLabel.text = art.title!
+        
+        for subview in cell.imageView.subviews {
+            subview.removeFromSuperview()
+        }
+        
+        if art.purchased!.boolValue {
+            cell.purchaseLabel.hidden = true
+        } else {
+            cell.purchaseLabel.hidden = false
+            
+            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+            let blurView = UIVisualEffectView(effect: blurEffect)
+            cell.layoutIfNeeded()
+            blurView.frame = cell.imageView.bounds
+            cell.imageView.addSubview(blurView)
+        }
         
         return cell
     }

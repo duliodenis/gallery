@@ -8,6 +8,7 @@
         <mutableArray key="ParkLane.ttf">
             <string>ParkLaneNF</string>
             <string>ParkLaneNF</string>
+            <string>ParkLaneNF</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -59,19 +60,30 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Purchase" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tM6-Id-zpV">
+                                                    <rect key="frame" x="0.0" y="0.0" width="227" height="227"/>
+                                                    <fontDescription key="fontDescription" name="ParkLaneNF" family="Park Lane NF" pointSize="20"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="8GH-bl-urf" firstAttribute="top" secondItem="nS5-O1-Wto" secondAttribute="top" id="0Gd-Tx-wUT"/>
                                             <constraint firstAttribute="bottom" secondItem="8GH-bl-urf" secondAttribute="bottom" constant="50" id="Imr-F5-mvA"/>
+                                            <constraint firstAttribute="trailing" secondItem="tM6-Id-zpV" secondAttribute="trailing" id="LkA-ED-UKp"/>
+                                            <constraint firstItem="tM6-Id-zpV" firstAttribute="top" secondItem="nS5-O1-Wto" secondAttribute="top" id="VLo-4C-Qu6"/>
+                                            <constraint firstItem="tM6-Id-zpV" firstAttribute="leading" secondItem="nS5-O1-Wto" secondAttribute="leading" id="Vwr-X2-rbG"/>
                                             <constraint firstAttribute="bottom" secondItem="F8o-Jo-6ta" secondAttribute="bottom" constant="10" id="bKQ-Mw-ivR"/>
                                             <constraint firstItem="F8o-Jo-6ta" firstAttribute="centerX" secondItem="nS5-O1-Wto" secondAttribute="centerX" id="eIe-U5-wJ1"/>
+                                            <constraint firstItem="F8o-Jo-6ta" firstAttribute="top" secondItem="tM6-Id-zpV" secondAttribute="bottom" id="hcA-GD-xhX"/>
                                             <constraint firstAttribute="trailing" secondItem="8GH-bl-urf" secondAttribute="trailing" id="iYx-zP-slh"/>
                                             <constraint firstItem="8GH-bl-urf" firstAttribute="leading" secondItem="nS5-O1-Wto" secondAttribute="leading" id="qXi-aL-RIe"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="imageView" destination="8GH-bl-urf" id="M2B-VY-M98"/>
+                                            <outlet property="purchaseLabel" destination="tM6-Id-zpV" id="f5D-90-euh"/>
                                             <outlet property="titleLabel" destination="F8o-Jo-6ta" id="qaQ-yx-aR4"/>
                                         </connections>
                                     </collectionViewCell>
