@@ -16,6 +16,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var collectionView: UICollectionView!
     
     var gallery = [Art]()
+    var products = [SKProduct]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +51,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
         print("Received requested products")
-        print("Products Ready: \(response.products)")
-        print("Invalid Products: \(response.invalidProductIdentifiers)")
+        print("Products Ready: \(response.products.count)")
+        print("Invalid Products: \(response.invalidProductIdentifiers.count)")
+        
+        for product in response.products {
+            print("Product: \(product.productIdentifier), Price: \(product.price)")
+        }
+        
+        products = response.products
+        collectionView.reloadData()
     }
     
     
@@ -113,6 +121,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             cell.layoutIfNeeded()
             blurView.frame = cell.imageView.bounds
             cell.imageView.addSubview(blurView)
+            
+            // Tie Store Product to Gallery Item
+            for product in products {
+                if product.productIdentifier == art.productIdentifier {
+                    // Show Local Currency for IAP
+                    let formatter = NSNumberFormatter()
+                    formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+                    formatter.locale = product.priceLocale
+                    if let price = formatter.stringFromNumber(product.price) {
+                        cell.purchaseLabel.text = "Buy for \(price)"
+                    }
+                }
+            }
         }
         
         return cell
