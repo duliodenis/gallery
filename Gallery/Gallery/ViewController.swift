@@ -66,7 +66,29 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     // MARK: Payment Transaction Observer Delegate Method
     
     func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        print("Purchase Made.")
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .Purchased:
+                print("Purchased")
+                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+                
+            case .Failed:
+                print("Failed")
+                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+                
+            case .Restored:
+                print("Restored")
+                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+                
+            // Keep in the Queue
+            case .Purchasing:
+                print("Purchasing")
+                
+            case .Deferred:
+                print("Deferred")
+                
+            }
+        }
     }
     
     
