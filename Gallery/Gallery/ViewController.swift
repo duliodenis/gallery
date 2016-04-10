@@ -11,7 +11,7 @@ import CoreData
 import StoreKit
 
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SKProductsRequestDelegate {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SKProductsRequestDelegate, SKPaymentTransactionObserver {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -63,6 +63,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     
+    // MARK: Payment Transaction Observer Delegate Method
+    
+    func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        print("Purchase Made.")
+    }
+    
+    
     // MARK: Core Data Function
     
     func createArt(title: String, imageName: String, productIdentifier: String, purchased: Bool) {
@@ -99,6 +106,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.gallery.count
     }
+    
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ArtCollectionViewCell", forIndexPath: indexPath) as! ArtCollectionViewCell
@@ -137,6 +145,22 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         
         return cell
+    }
+    
+    
+    // When the user taps an item in the collection view that hasn't been purchased - add the product to the payment queue
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let art = gallery[indexPath.row]
+        if !art.purchased!.boolValue {
+            for product in products {
+                if product.productIdentifier == art.productIdentifier {
+                    SKPaymentQueue.defaultQueue().addTransactionObserver(self)
+                    let payment = SKPayment(product: product)
+                    SKPaymentQueue.defaultQueue().addPayment(payment)
+                }
+            }
+        }
     }
     
     
