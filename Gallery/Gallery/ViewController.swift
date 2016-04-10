@@ -81,6 +81,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     
+    @IBAction func restorePurchase(sender: AnyObject) {
+        SKPaymentQueue.defaultQueue().restoreCompletedTransactions()
+    }
+    
+    
     // MARK: Payment Transaction Observer Delegate Method
     
     func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
@@ -97,6 +102,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 
             case .Restored:
                 print("Restored")
+                unlockProduct(transaction.payment.productIdentifier)
                 SKPaymentQueue.defaultQueue().finishTransaction(transaction)
                 
             // Keep in the Queue
