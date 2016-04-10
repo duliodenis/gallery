@@ -63,6 +63,24 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     
+    func unlockProduct(productIdentifier: String) {
+        for art in gallery {
+            if art.productIdentifier == productIdentifier {
+                art.purchased = 1
+                
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                let context = appDelegate.managedObjectContext
+                
+                do {
+                    try context.save()
+                } catch{}
+                
+                collectionView.reloadData()
+            }
+        }
+    }
+    
+    
     // MARK: Payment Transaction Observer Delegate Method
     
     func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
@@ -70,6 +88,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             switch transaction.transactionState {
             case .Purchased:
                 print("Purchased")
+                unlockProduct(transaction.payment.productIdentifier)
                 SKPaymentQueue.defaultQueue().finishTransaction(transaction)
                 
             case .Failed:
